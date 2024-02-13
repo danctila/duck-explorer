@@ -10,7 +10,13 @@ const openai = new OpenAI ({
     apiKey: apiKey 
 })
 
-async function gptTest() {
+const app = express()
+app.use(cors())
+app.use(express.json())
+
+app.post("/chat", async (req, res) => {
+    const { prompt } = req.body
+
     const response = await openai.chat.completions.create({
         model: 'gpt-4-vision-preview',
         messages: [
@@ -18,19 +24,13 @@ async function gptTest() {
                 role: 'user',
                 content: [
                     {type: 'text', text: 'What is this image?'},
-                    {type: 'image_url', image_url: 'https://imageio.forbes.com/specials-images/imageserve/6064b148afc9b47d022718d1/Hennessey-Venom-F5/960x0.jpg'}
+                    {type: 'image_url', image_url: prompt}
                 ]
             }
         ]
     });
-    console.log(response.choices[0].message)
-}
-gptTest();
-
-
-const app = express()
-app.use(cors())
-app.use(express.json())
+    res.send(completion.data.choices[0].text)
+})
 
 app.get('/random', (req, res) => {
     axios.get('https://random-d.uk/api/v2/random')
