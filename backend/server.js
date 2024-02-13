@@ -15,8 +15,7 @@ app.use(cors())
 app.use(express.json())
 
 app.post("/chat", async (req, res) => {
-    const { prompt } = req.body
-
+    const url = req.body.url
     const response = await openai.chat.completions.create({
         model: 'gpt-4-vision-preview',
         messages: [
@@ -24,12 +23,12 @@ app.post("/chat", async (req, res) => {
                 role: 'user',
                 content: [
                     {type: 'text', text: 'What is this image?'},
-                    {type: 'image_url', image_url: prompt}
+                    {type: 'image_url', image_url: url}
                 ]
             }
         ]
     });
-    res.send(completion.data.choices[0].text)
+    res.send(response.choices[0].message.content)
 })
 
 app.get('/random', (req, res) => {
