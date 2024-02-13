@@ -18,11 +18,12 @@ app.post("/chat", async (req, res) => {
     const url = req.body.url
     const response = await openai.chat.completions.create({
         model: 'gpt-4-vision-preview',
+        max_tokens: 20,
         messages: [
             {
                 role: 'user',
                 content: [
-                    {type: 'text', text: 'What is this image?'},
+                    {type: 'text', text: 'Describe the image as if it were in an animal encyclopedia.'},
                     {type: 'image_url', image_url: url}
                 ]
             }
