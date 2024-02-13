@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import robotGif from "./assets/cute-robot.gif";
+import "./App.css";
 
 function App() {
   const [url, setUrl] = useState("");
@@ -34,12 +36,24 @@ function App() {
 
   return (
     <>
-      <div>
-        <button onClick={fetchImage}>Fetch duck image</button>
-        <button onClick={handleSubmit}>Get an image an analyze</button>
+      <div className="hero">
+        <text className="title">Duck Explorer</text>
+        <text className="subtitle">
+          Take a journey into nature with artificial intelligence
+        </text>
       </div>
-      <img src={url} width={500}></img>
-      <h2>{response}</h2>
+      <div className="main">
+        <div className="card">
+          <div>
+            <button className="btn" onClick={handleSubmit}>
+              NEW DUCK
+            </button>
+          </div>
+          <img src={url} width={200}></img>
+          <div className="bubble bubble-bottom-left">{response}</div>
+          <img src={robotGif} width={300}></img>
+        </div>
+      </div>
     </>
   );
 }
