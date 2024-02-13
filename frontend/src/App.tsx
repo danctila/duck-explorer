@@ -5,10 +5,12 @@ function App() {
   const [url, setUrl] = useState("");
   const [response, setResponse] = useState("");
 
+  // fetch image on first render
   useEffect(() => {
     fetchImage();
   }, []);
 
+  // send image url to /chat endpoint and recieve string gpt response
   const handleSubmit = () => {
     axios
       .post("http://localhost:8081/chat", { url })
@@ -18,6 +20,7 @@ function App() {
       });
   };
 
+  // fetch image url from /random endpoint
   const fetchImage = () => {
     axios
       .get("http://localhost:8081/random")
@@ -35,7 +38,7 @@ function App() {
         <button onClick={fetchImage}>Fetch duck image</button>
         <button onClick={handleSubmit}>Get an image an analyze</button>
       </div>
-      <img src={String(url)} width={500}></img>
+      <img src={url} width={500}></img>
       <h2>{response}</h2>
     </>
   );
