@@ -10,6 +10,24 @@ const openai = new OpenAI ({
     apiKey: apiKey 
 })
 
+async function gptTest() {
+    const response = await openai.chat.completions.create({
+        model: 'gpt-4-vision-preview',
+        messages: [
+            {
+                role: 'user',
+                content: [
+                    {type: 'text', text: 'What is this image?'},
+                    {type: 'image_url', image_url: 'https://imageio.forbes.com/specials-images/imageserve/6064b148afc9b47d022718d1/Hennessey-Venom-F5/960x0.jpg'}
+                ]
+            }
+        ]
+    });
+    console.log(response.choices[0].message)
+}
+gptTest();
+
+
 const app = express()
 app.use(cors())
 app.use(express.json())
