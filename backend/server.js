@@ -18,19 +18,40 @@ app.post("/chat", async (req, res) => {
     const url = req.body.url
     const response = await openai.chat.completions.create({
         model: 'gpt-4-vision-preview',
-        max_tokens: 20,
+        max_tokens: 40,
         messages: [
             {
                 role: 'user',
                 content: [
-                    {type: 'text', text: 'Describe the image as if it were in an animal encyclopedia.'},
+                    {type: 'text', text: 'Describe the image as if it were in an animal encyclopedia. Keep your answer within 2 sentences'},
                     {type: 'image_url', image_url: url}
                 ]
             }
         ]
     });
-    res.send(response.choices[0].message.content)
+    console.log(response.choices[0].message.content)
+    var newMessage = truncateIncompleteSentences(response.choices[0].message.content)
+    console.log(newMessage)
+    res.send(newMessage)
+    // res.send(response.choices[0].message.content)
 })
+
+function truncateIncompleteSentences(message) {
+    var sentences = message.split(/(?<=[.!?])/);
+    var lastSentence = sentences[sentences.length - 1].trim();
+    var lastChar = lastSentence.charAt(lastSentence.length - 1);
+    if (lastChar !== '.' && lastChar !== '?' && lastChar !== '!') {
+      sentences.pop();
+    }
+  
+    return sentences.join('');
+  }
+
+  function main() {
+    console.log(truncateIncompleteSentences('Tester. sentence'))
+  }
+
+  main()
 
 app.get('/random', (req, res) => {
     axios.get('https://random-d.uk/api/v2/random')

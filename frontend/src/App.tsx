@@ -49,7 +49,7 @@ function App() {
               NEW DUCK
             </button>
           </div>
-          <img src={url} width={200}></img>
+          <img src={url} className="image"></img>
           <div className="bubble bubble-bottom-left">{response}</div>
           <img src={robotGif} width={300}></img>
         </div>
