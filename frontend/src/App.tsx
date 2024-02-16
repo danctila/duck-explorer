@@ -44,9 +44,13 @@ function App() {
       </div>
       <div className="main">
         <div className="card">
-          <div>
+          <div className="btnCont">
+            <button className="btn" onClick={fetchImage}>
+              NEW DUCK<span className="material-symbols-outlined">refresh</span>
+            </button>
             <button className="btn" onClick={handleSubmit}>
-              NEW DUCK
+              ANALYZE
+              <span className="material-symbols-outlined">mystery</span>
             </button>
           </div>
           <img src={url} className="image"></img>
