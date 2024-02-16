@@ -41,6 +41,7 @@ body {
     height: auto; 
     max-width: 400px; 
     margin-bottom:40px ;
+    border: solid 1px #E885FF;
   }
   
   @media only screen and (max-width: 768px) {
