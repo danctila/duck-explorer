@@ -47,12 +47,6 @@ function truncateIncompleteSentences(message) {
     return sentences.join('');
   }
 
-  function main() {
-    console.log(truncateIncompleteSentences('Tester. sentence'))
-  }
-
-  main()
-
 app.get('/random', (req, res) => {
     axios.get('https://random-d.uk/api/v2/random')
     .then(response => {
